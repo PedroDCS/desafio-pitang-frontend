@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import { Input } from "@mantine/core";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import ButtonGoHome from '../../components/ButtonGoHome/ButtonGoHome';
 
 function SchedulingTable(props) {
     const location = useLocation();
@@ -23,16 +24,20 @@ function SchedulingTable(props) {
     const navigateTomarcarConsultas = () => {
         navigate('/marcarconsulta')
     }
-    return (<div>
+
+    return (<div className='tabela'>
         <h1>Agendamento do Dia</h1>
-        <DatePicker
+        <DatePicker className='DatePicker'
             selected={startDate}
             dateFormat="dd/MM/yyyy"
             onChange={(date) => setStartDate(date)}
             customInput={<Input />} />
 
         <CostumTable day={startDate} />
-        <Button onClick={navigateTomarcarConsultas} >Marcar Consulta</Button>
+        <div>
+            <Button className='button' onClick={navigateTomarcarConsultas} >Marcar Consulta</Button>
+            <ButtonGoHome />
+        </div>
     </div>)
 }
 
