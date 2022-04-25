@@ -23,6 +23,7 @@ function Router() {
                 <Route path='/registro' element={<Register />} />
                 <Route path='/marcarconsulta' element={<Scheduling />} />
                 <Route path='/consultas' element={<SchedulingTable />} />
+                <Route path='*' element={<h1>Pagina não existe...</h1>} />
 
             </Routes>
         </Container>
