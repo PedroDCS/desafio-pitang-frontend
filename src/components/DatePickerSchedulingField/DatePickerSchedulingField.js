@@ -12,6 +12,8 @@ function DatePickerSchedulingField({ ...props }) {
 
     return (
         <div>
+            <label>Escolha a data</label>
+
             <DatePicker
                 {...field}
                 {...props}
