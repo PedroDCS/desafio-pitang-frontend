@@ -1,6 +1,6 @@
 import { Button, Notification } from "@mantine/core";
 import { Form, Formik } from "formik";
-import { Home, X } from "tabler-icons-react";
+import { Home } from "tabler-icons-react";
 import * as Yup from 'yup';
 import DatePickerField from "../../components/DatePickerField/DatePickerField";
 import DatePickerSchedulingField from "../../components/DatePickerSchedulingField/DatePickerSchedulingField";
@@ -8,6 +8,8 @@ import InputFormComponent from "../../components/InputFormComponent/InputFormCom
 import './Scheduling.scss'
 import axios from '../../services/api';
 import { useNavigate } from "react-router-dom";
+import { showNotification } from "@mantine/notifications";
+import ButtonGoHome from '../../components/ButtonGoHome/ButtonGoHome';
 
 
 function Scheduling() {
@@ -22,19 +24,23 @@ function Scheduling() {
         setSubmitting(true);
 
         console.log(JSON.stringify(values, null, 2));
-
-        axios
-            .post(`/scheduling`, values)
-            .then((response) => {
-                console.log(response);
-                navigate('/consultas', { state: { dayProp: values.schedulingDate } })
-                // setElements(response.data.items)
-            })
-            .catch(console.error, <Notification icon={<X size={18} />} color="red">
-                Bummer! Notification without title
-            </Notification>
-            );
-
+        try {
+            axios
+                .post(`/scheduling`, values)
+                .then((response) => {
+                    console.log(response);
+                    navigate('/consultas', { state: { dayProp: values.schedulingDate } })
+                })
+        } catch (error) {
+            showNotification({
+                color: "red",
+                title: "Error",
+                message: `Horario Cheio`,
+            });
+        }
+        setTimeout(() => {
+            setSubmitting(false);
+        }, 2000);
     }
 
     return (<div>
@@ -71,7 +77,7 @@ function Scheduling() {
                             <Button className="Button" fullWidth type="submit" disabled={isSubmitting} radius="md" size="lg" uppercase onClick={onclick}>
                                 Cadastrar
                             </Button>
-
+                            <ButtonGoHome />
                         </Form>
                     );
                 }}
