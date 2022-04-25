@@ -8,6 +8,7 @@ function DatePickerField({ ...props }) {
     const [field] = useField(props);
     return (
         <div>
+            <label>Escolha a data</label>
             <DatePicker
                 {...field}
                 {...props}

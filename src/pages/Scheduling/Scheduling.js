@@ -1,35 +1,52 @@
-import { Button } from "@mantine/core";
+import { Button, Notification } from "@mantine/core";
 import { Form, Formik } from "formik";
-import { At } from "tabler-icons-react";
+import { Home, X } from "tabler-icons-react";
 import * as Yup from 'yup';
 import DatePickerField from "../../components/DatePickerField/DatePickerField";
 import DatePickerSchedulingField from "../../components/DatePickerSchedulingField/DatePickerSchedulingField";
 import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
 import './Scheduling.scss'
-function Scheduling() {
+import axios from '../../services/api';
+import { useNavigate } from "react-router-dom";
 
+
+function Scheduling() {
+    const navigate = useNavigate()
     const SignupSchema = Yup.object().shape({
-        patientName: Yup.string().required('Insira o email'),
-        bithDate: Yup.date().required('Insira a Data de nascimento'),
-        schedulingDate: Yup.date().required('Insira a Data de nascimento')
+        patientName: Yup.string().required('Insira seu Nome'),
+        birthDate: Yup.date().required('Insira a Data de nascimento'),
+        schedulingDate: Yup.date().required('Insira a Data e Hora que deseja marcar a consulta')
     });
+
+    const salvar = (values, { setSubmitting }) => {
+        setSubmitting(true);
+
+        console.log(JSON.stringify(values, null, 2));
+
+        axios
+            .post(`/scheduling`, values)
+            .then((response) => {
+                console.log(response);
+                navigate('/consultas', { state: { dayProp: values.schedulingDate } })
+                // setElements(response.data.items)
+            })
+            .catch(console.error, <Notification icon={<X size={18} />} color="red">
+                Bummer! Notification without title
+            </Notification>
+            );
+
+    }
 
     return (<div>
         <h1>Agende uma consulta</h1>
         <div className="form">
             <Formik
-                initialValues={{ bithDate: '', schedulingDate: '' ,patientName: ''}}
-                onSubmit={(values, { setSubmitting }) => {
-                    console.log(Date(new Date(values.schedulingDate).getTime().toLocaleString("pt-BR")));
-                    setTimeout(() => {
-                        console.log(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 500);
-                }}
-                validationSchema={SignupSchema}
-            >
+                initialValues={{ birthDate: '', schedulingDate: '', patientName: '' }}
+                onSubmit={salvar}
+                validationSchema={SignupSchema} >
                 {(props) => {
                     const {
+
                         isSubmitting,
                         handleSubmit,
                         values,
@@ -37,20 +54,20 @@ function Scheduling() {
                         handleBlur
                     } = props;
                     return (
-                        <Form className="formik" onSubmit={handleSubmit}>
+                        <Form autoComplete="off" className="formik" onSubmit={handleSubmit}>
 
                             <InputFormComponent
-                                icon={<At />}
+                                icon={<Home />}
                                 handleBlur={handleBlur}
                                 handleChange={handleChange}
                                 name="patientName"
-                                placeholder="Insira Seu Nome"
+                                textPlaceholder="Insira Seu Nome"
                                 value={values.patientName} />
 
-                      
-                            <DatePickerField name="bithDate" />
+
+                            <DatePickerField name="birthDate" />
                             <DatePickerSchedulingField name="schedulingDate" />
-                            
+
                             <Button className="Button" fullWidth type="submit" disabled={isSubmitting} radius="md" size="lg" uppercase onClick={onclick}>
                                 Cadastrar
                             </Button>

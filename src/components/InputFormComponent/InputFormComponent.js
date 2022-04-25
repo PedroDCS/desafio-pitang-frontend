@@ -1,11 +1,12 @@
 import { Input } from "@mantine/core";
 import { ErrorMessage } from "formik";
 
-function InputFormComponent({ handleChange, handleBlur, value, name, placeholder,icon }) {
+function InputFormComponent({ handleChange, handleBlur, value, name, textPlaceholder, icon }) {
     return (<div>
+        <label htmlFor={textPlaceholder}>{textPlaceholder} abaixo:</label>
         <Input
             icon={icon}
-            placeholder={placeholder}
+            placeholder={textPlaceholder}
             type={name}
             name={name}
             onChange={handleChange}

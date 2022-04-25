@@ -45,7 +45,7 @@ function Register() {
                                 handleBlur={handleBlur}
                                 handleChange={handleChange}
                                 name="email"
-                                placeholder="Insira Seu Email"
+                                textPlaceholder="Insira Seu Email"
                                 value={values.email} />
 
                             <InputFormComponent
@@ -53,7 +53,7 @@ function Register() {
                                 handleBlur={handleBlur}
                                 handleChange={handleChange}
                                 name="password"
-                                placeholder="Insira Sua Senha"
+                                textPlaceholder="Insira Sua Senha"
                                 value={values.password} />
 
                             <DatePickerField name="bithDate" />

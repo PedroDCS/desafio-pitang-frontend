@@ -6,7 +6,7 @@ function HomePage() {
     const navigate = useNavigate()
 
     const navigateToConsultas = () => {
-        navigate('/consultas')
+        navigate('/consultas',{state:{dayProp: new Date()}})
     }
     const navigateTomarcarConsultas = () => {
         navigate('/marcarconsulta')
