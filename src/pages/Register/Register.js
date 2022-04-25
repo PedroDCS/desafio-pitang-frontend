@@ -1,6 +1,9 @@
+
+import './Register.scss'
 function Register() {
     return (<div>
-        <p>Register</p>
+        <h1>Registre-se para agendar uma consulta</h1>
+        
     </div>);
 }
 
