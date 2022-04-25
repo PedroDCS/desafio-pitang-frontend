@@ -1,0 +1,19 @@
+.form {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.formik {
+    width: 600px;
+    @media only screen and (max-width: 620px) {
+        width: 90%;
+    }
+
+    Input {
+        margin-top: 22px;
+    }
+    .Button {
+        margin-bottom: 22px;
+    }
+}
