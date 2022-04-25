@@ -1,6 +1,16 @@
-.Field {
-    background-color: aqua;
+.form {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-h2{
-    color: aqua;
+.formik {
+    width: 600px;
+    @media only screen and (max-width: 620px) {
+        width: 90%;
+    }
+
+    Input{
+        margin-top: 22px;
+    }
 }
